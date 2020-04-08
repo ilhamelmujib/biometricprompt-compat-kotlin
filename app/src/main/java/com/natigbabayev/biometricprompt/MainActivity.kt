@@ -1,7 +1,9 @@
 package com.natigbabayev.biometricprompt
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricPrompt
 import androidx.fragment.app.FragmentActivity
@@ -20,20 +22,24 @@ class MainActivity : AppCompatActivity() {
             override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
                 super.onAuthenticationError(errorCode, errString)
                 if (errorCode == BiometricPrompt.ERROR_NEGATIVE_BUTTON) {
-                    // user clicked negative button
+                    Log.d("BiometricPrompt", errString.toString())
+                    //Toast.makeText(this@MainActivity, errString, Toast.LENGTH_SHORT).show()
                 } else {
-                    TODO("Called when an unrecoverable error has been encountered and the operation is complete.")
+                    Log.d("BiometricPrompt", "onAuthenticationError")
+                    //Toast.makeText(this@MainActivity, "onAuthenticationError", Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
                 super.onAuthenticationSucceeded(result)
-                TODO("Called when a biometric is recognized.")
+                Log.d("BiometricPrompt", "onAuthenticationSucceeded")
+                //Toast.makeText(this@MainActivity, "onAuthenticationSucceeded", Toast.LENGTH_SHORT).show()
             }
 
             override fun onAuthenticationFailed() {
                 super.onAuthenticationFailed()
-                TODO("Called when a biometric is valid but not recognized.")
+                //Toast.makeText(this@MainActivity, "onAuthenticationFailed", Toast.LENGTH_SHORT).show()
+                Log.d("BiometricPrompt", "onAuthenticationFailed")
             }
         })
 
@@ -41,7 +47,7 @@ class MainActivity : AppCompatActivity() {
             .setTitle("Set the title to display.")
             .setSubtitle("Set the subtitle to display.")
             .setDescription("Set the description to display")
-            .setNegativeButtonText("Negative Button")
+            .setNegativeButtonText("Cancel")
             .build()
 
         findViewById<Button>(R.id.authenticateButton).setOnClickListener {
